@@ -1,9 +1,7 @@
 {
   "name": "email-verification-redirect",
   "version": "1.0.0",
-  "description": "Email verification page with redirect",
   "scripts": {
-    "build": "echo 'Building...'"
-  },
-  "devDependencies": {}
+    "build": "mkdir -p dist && cp index.html dist/"
+  }
 }
