@@ -2,21 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build"
+      "src": "index.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/$",
-      "dest": "/index.html"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "REDIRECT_URL": "https://asw.driocro.my.id/xhGzpaIJiTWaZ4QHtGxmhl@u/"
-  }
+  ]
 }
